@@ -6,19 +6,15 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Alura.ListaLeitura.App
 {
     public class Startup
     {
-        public LivroRepositorioCSV _repo { get; private set; }
-
-        public Startup()
-        {
-            _repo = new LivroRepositorioCSV();
-        }
-
+        
+        
         public void Configure(IApplicationBuilder app)
         {
             var builder = new RouteBuilder(app);
@@ -26,9 +22,18 @@ namespace Alura.ListaLeitura.App
             builder.MapRoute("Livros/Lendo", LivrosLendo);
             builder.MapRoute("Livros/Lidos", LivrosLidos);
             builder.MapRoute("Cadastro/NovoLivro/{Nome}/{Autor}", NovoLivroParaLer);
+            builder.MapRoute("Cadastro/Detalhes/{id}", ExibeDetalhes);
             var rotas = builder.Build();
             app.UseRouter(rotas);
             //app.Run(builder.);//Quando criado na mão!!!
+        }
+
+        public Task ExibeDetalhes(HttpContext context)
+        {
+            var id = Convert.ToInt32(context.GetRouteValue("id"));
+            var _repo = new LivroRepositorioCSV();
+            var livro = _repo.Todos.First(l => l.Id == id);
+            return context.Response.WriteAsync(livro.Detalhes());
         }
 
         public void ConfigureServices(IServiceCollection service)
@@ -43,22 +48,26 @@ namespace Alura.ListaLeitura.App
                 Titulo = context.GetRouteValue("Nome").ToString(),
                 Autor = context.GetRouteValue("Autor").ToString()
             };
+            var _repo = new LivroRepositorioCSV();
             _repo.Incluir(livro);
             return context.Response.WriteAsync("O Livro foi adicionado com sucesso");
         }
 
         public Task LivrosParaLer(HttpContext context)
         {
+            var _repo = new LivroRepositorioCSV();
             return context.Response.WriteAsync(_repo.ParaLer.ToString());
         }
 
         public Task LivrosLendo(HttpContext context)
         {
+            var _repo = new LivroRepositorioCSV();
             return context.Response.WriteAsync(_repo.Lendo.ToString());
         }
 
         public Task LivrosLidos(HttpContext context)
         {
+            var _repo = new LivroRepositorioCSV();
             return context.Response.WriteAsync(_repo.Lidos.ToString());
         }
 

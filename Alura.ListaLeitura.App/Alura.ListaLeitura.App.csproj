@@ -8,17 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Repositorio\livros.csv" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ApplicationDefinition Include="Repositorio\livros.csv">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </ApplicationDefinition>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Repositorio\livros.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
