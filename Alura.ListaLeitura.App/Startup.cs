@@ -14,7 +14,10 @@ namespace Alura.ListaLeitura.App
     {
         public LivroRepositorioCSV _repo { get; private set; }
 
-        public Startup() => _repo = new LivroRepositorioCSV();
+        public Startup()
+        {
+            _repo = new LivroRepositorioCSV();
+        }
 
         public void Configure(IApplicationBuilder app)
         {
@@ -25,7 +28,12 @@ namespace Alura.ListaLeitura.App
             builder.MapRoute("Cadastro/NovoLivro/{Nome}/{Autor}", NovoLivroParaLer);
             var rotas = builder.Build();
             app.UseRouter(rotas);
-            //app.Run(builder.);
+            //app.Run(builder.);//Quando criado na mão!!!
+        }
+
+        public void ConfigureServices(IServiceCollection service)
+        {
+            service.AddRouting();
         }
 
         public Task NovoLivroParaLer(HttpContext context)
@@ -39,11 +47,26 @@ namespace Alura.ListaLeitura.App
             return context.Response.WriteAsync("O Livro foi adicionado com sucesso");
         }
 
-        public void ConfigureServices(IServiceCollection service)
+        public Task LivrosParaLer(HttpContext context)
         {
-            service.AddRouting();
+            return context.Response.WriteAsync(_repo.ParaLer.ToString());
         }
 
+        public Task LivrosLendo(HttpContext context)
+        {
+            return context.Response.WriteAsync(_repo.Lendo.ToString());
+        }
+
+        public Task LivrosLidos(HttpContext context)
+        {
+            return context.Response.WriteAsync(_repo.Lidos.ToString());
+        }
+
+        /// <summary>
+        /// Na mão grande!!!
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
         public Task Roteamento(HttpContext context)
         {
             var caminhosAtendidos = new Dictionary<string, RequestDelegate>
@@ -62,21 +85,6 @@ namespace Alura.ListaLeitura.App
             context.Response.StatusCode = 404;
             return context.Response.WriteAsync("Caminho inexistente!!!");
 
-        }
-
-        public Task LivrosParaLer(HttpContext context)
-        {
-            return context.Response.WriteAsync(_repo.ParaLer.ToString());
-        }
-
-        public Task LivrosLendo(HttpContext context)
-        {
-            return context.Response.WriteAsync(_repo.Lendo.ToString());
-        }
-
-        public Task LivrosLidos(HttpContext context)
-        {
-            return context.Response.WriteAsync(_repo.Lidos.ToString());
         }
 
 
