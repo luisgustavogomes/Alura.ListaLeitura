@@ -23,9 +23,24 @@ namespace Alura.ListaLeitura.App
             builder.MapRoute("Livros/Lidos", LivrosLidos);
             builder.MapRoute("Cadastro/NovoLivro/{Nome}/{Autor}", NovoLivroParaLer);
             builder.MapRoute("Cadastro/Detalhes/{id}", ExibeDetalhes);
+            builder.MapRoute("Cadastro/NovoLivro", ExibeFormulario);
             var rotas = builder.Build();
             app.UseRouter(rotas);
             //app.Run(builder.);//Quando criado na mão!!!
+        }
+
+        public Task ExibeFormulario(HttpContext context)
+        {
+            var html =
+                @"
+                 <html>
+                 <form>
+                    <input/>
+                    <input/>
+                    <button>Gravar</button>
+                 </form>
+                 </html>";
+            return context.Response.WriteAsync(html);
         }
 
         public Task ExibeDetalhes(HttpContext context)
