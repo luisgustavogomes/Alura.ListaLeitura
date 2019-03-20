@@ -24,22 +24,43 @@ namespace Alura.ListaLeitura.App
             builder.MapRoute("Cadastro/NovoLivro/{Nome}/{Autor}", NovoLivroParaLer);
             builder.MapRoute("Cadastro/Detalhes/{id}", ExibeDetalhes);
             builder.MapRoute("Cadastro/NovoLivro", ExibeFormulario);
+            builder.MapRoute("Cadastro/Incluir", ProcessaFormulario);
             var rotas = builder.Build();
             app.UseRouter(rotas);
             //app.Run(builder.);//Quando criado na mão!!!
+        }
+
+        public Task ProcessaFormulario(HttpContext context)
+        {
+            var livro = new Livro()
+            {
+                Titulo = context.GetRouteValue("tnome").ToString(),
+                Autor = context.GetRouteValue("tautor").ToString()
+            };
+            var _repo = new LivroRepositorioCSV();
+            _repo.Incluir(livro);
+            return context.Response.WriteAsync("O Livro foi adicionado com sucesso");
         }
 
         public Task ExibeFormulario(HttpContext context)
         {
             var html =
                 @"
-                 <html>
-                 <form>
-                    <input/>
-                    <input/>
-                    <button>Gravar</button>
-                 </form>
-                 </html>";
+                 <!DOCTYPE html>
+                <html>
+                <head>
+                    <meta charset='utf-8'  />
+                    <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
+                    <meta name='viewport' content='width=device-width, initial-scale = 1'>
+                </head>
+                <body>
+                    <form action='/Cadastro/Incluir' method='post'>
+                        <p><label for='cnome'>Nome:</label><input type='text' name='tnome' id='cnome' size='20' maxlength='80' placeholder='Nome'/></p>
+                        <p><label for='cautor'>Autor:</label><input type='text' name='tautor' id='cautor' size='20' maxlength='80' placeholder='Autor'/></p>
+                    <input type='submit' value='Gravar'/>
+                </form>
+                </body>
+                </html>";
             return context.Response.WriteAsync(html);
         }
 
