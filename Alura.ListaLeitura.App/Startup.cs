@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -34,8 +35,8 @@ namespace Alura.ListaLeitura.App
         {
             var livro = new Livro()
             {
-                Titulo = context.GetRouteValue("tnome").ToString(),
-                Autor = context.GetRouteValue("tautor").ToString()
+                Titulo = context.Request.Query["tnome"].First(),
+                Autor = context.Request.Query["tautor"].First()
             };
             var _repo = new LivroRepositorioCSV();
             _repo.Incluir(livro);
@@ -44,24 +45,16 @@ namespace Alura.ListaLeitura.App
 
         public Task ExibeFormulario(HttpContext context)
         {
-            var html =
-                @"
-                 <!DOCTYPE html>
-                <html>
-                <head>
-                    <meta charset='utf-8'  />
-                    <meta http-equiv = 'X-UA-Compatible' content = 'IE=edge'>
-                    <meta name='viewport' content='width=device-width, initial-scale = 1'>
-                </head>
-                <body>
-                    <form action='/Cadastro/Incluir' method='post'>
-                        <p><label for='cnome'>Nome:</label><input type='text' name='tnome' id='cnome' size='20' maxlength='80' placeholder='Nome'/></p>
-                        <p><label for='cautor'>Autor:</label><input type='text' name='tautor' id='cautor' size='20' maxlength='80' placeholder='Autor'/></p>
-                    <input type='submit' value='Gravar'/>
-                </form>
-                </body>
-                </html>";
-            return context.Response.WriteAsync(html);
+            return context.Response.WriteAsync(CarregaArquivoHtml("Formulario"));
+        }
+
+        private String CarregaArquivoHtml(string nomeArquivo)
+        {
+            var nomeCompletoArquivo = $"HTML/{nomeArquivo}.html";
+            using (var arquivo = File.OpenText(nomeCompletoArquivo) )
+            {
+                return arquivo.ReadToEnd();
+            }
         }
 
         public Task ExibeDetalhes(HttpContext context)

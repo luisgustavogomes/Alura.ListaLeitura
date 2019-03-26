@@ -9,8 +9,8 @@ namespace Alura.ListaLeitura.App.Repositorio
 {
     public class LivroRepositorioCSV : ILivroRepositorio
     {
-        private static readonly string nomeArquivoCSV = "C:\\Users\\lg.LUIS\\source\\repos\\Alura.ListaLeitura.Projeto.Inicial\\Alura.ListaLeitura\\Alura.ListaLeitura.App\\Repositorio\\livros.csv";
-        //private static readonly string nomeArquivoCSV = "C:\\Users\\luis.gomes\\Source\\Repos\\luisgustavogomes\\Alura.ListaLeitura\\Alura.ListaLeitura.App\\Repositorio\\livros.csv";
+        //private static readonly string nomeArquivoCSV = "C:\\Users\\lg.LUIS\\source\\repos\\Alura.ListaLeitura.Projeto.Inicial\\Alura.ListaLeitura\\Alura.ListaLeitura.App\\Repositorio\\livros.csv";
+        private static readonly string nomeArquivoCSV = "C:\\Users\\luis.gomes\\Source\\Repos\\luisgustavogomes\\Alura.ListaLeitura\\Alura.ListaLeitura.App\\Repositorio\\livros.csv";
 
         private ListaDeLeitura _paraLer;
         private ListaDeLeitura _lendo;
