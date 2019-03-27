@@ -1,25 +1,26 @@
-﻿using Alura.ListaLeitura.App.Mvc;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Routing;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Alura.ListaLeitura.App
 {
     public class Startup
     {
-                
-        public void Configure(IApplicationBuilder app)
-        {
-            var builder = new RouteBuilder(app);
-            builder.MapRoute("{classe}/{metodo}", RoteamentoPadrao.TratamentoPadrao);
-            app.UseRouter(builder.Build());
-        }
-
         public void ConfigureServices(IServiceCollection service)
         {
             service.AddRouting();
+            service.AddMvc();
+        }
+                
+        public void Configure(IApplicationBuilder app)
+        {
+            app.UseMvcWithDefaultRoute();
         }
 
+
+        // rota utilizando classe RoteamentoPadrao
+        //var builder = new RouteBuilder(app);
+        //builder.MapRoute("{classe}/{metodo}", RoteamentoPadrao.TratamentoPadrao);
+        //app.UseRouter(builder.Build());
 
         // ROTA INDICANDO PATH
         //builder.MapRoute("Livros/ParaLer", LivrosLogica.ParaLer);
