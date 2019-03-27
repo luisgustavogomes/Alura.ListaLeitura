@@ -22,19 +22,24 @@ namespace Alura.ListaLeitura.App.Logica
         }
                        
 
-        public static Task LivrosParaLer(HttpContext context)
+        public static Task ParaLer(HttpContext context)
         {
             return context.Response.WriteAsync(CarregaLista(new LivroRepositorioCSV().ParaLer.Livros));
         }
 
-        public static Task LivrosLendo(HttpContext context)
+        public static Task Lendo(HttpContext context)
         {
             return context.Response.WriteAsync(CarregaLista(new LivroRepositorioCSV().Lendo.Livros));
         }
 
-        public static Task LivrosLidos(HttpContext context)
+        public static Task Lidos(HttpContext context)
         {
             return context.Response.WriteAsync(CarregaLista(new LivroRepositorioCSV().Lidos.Livros));
+        }
+
+        public static Task Teste(HttpContext context)
+        {
+            return context.Response.WriteAsync("Nova funcionalidade implementada");
         }
 
     }

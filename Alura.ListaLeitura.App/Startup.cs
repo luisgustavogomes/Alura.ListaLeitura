@@ -1,4 +1,4 @@
-﻿using Alura.ListaLeitura.App.Logica;
+﻿using Alura.ListaLeitura.App.Mvc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,13 +11,8 @@ namespace Alura.ListaLeitura.App
         public void Configure(IApplicationBuilder app)
         {
             var builder = new RouteBuilder(app);
-            builder.MapRoute("Livros/ParaLer", LivrosLogica.LivrosParaLer);
-            builder.MapRoute("Livros/Lendo", LivrosLogica.LivrosLendo);
-            builder.MapRoute("Livros/Lidos", LivrosLogica.LivrosLidos);
-            builder.MapRoute("Cadastro/NovoLivro", CadastroLogica.ExibeFormulario);
-            builder.MapRoute("Cadastro/Incluir", CadastroLogica.ProcessaFormulario);
-            var rotas = builder.Build();
-            app.UseRouter(rotas);
+            builder.MapRoute("{classe}/{metodo}", RoteamentoPadrao.TratamentoPadrao);
+            app.UseRouter(builder.Build());
         }
 
         public void ConfigureServices(IServiceCollection service)
@@ -25,10 +20,18 @@ namespace Alura.ListaLeitura.App
             service.AddRouting();
         }
 
+
+        // ROTA INDICANDO PATH
+        //builder.MapRoute("Livros/ParaLer", LivrosLogica.ParaLer);
+        //builder.MapRoute("Livros/Lendo", LivrosLogica.Lendo);
+        //builder.MapRoute("Livros/Lidos", LivrosLogica.Lidos);
+        //builder.MapRoute("Cadastro/ExibeFormulario", CadastroLogica.ExibeFormulario);
+        //builder.MapRoute("Cadastro/Incluir", CadastroLogica.Incluir);
+
         //------------------------------------------------------------------//
 
         /// <summary>
-        /// Na mão grande!!!
+        /// Na mão grande!!! ROTA COM TEMPLATES 
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
