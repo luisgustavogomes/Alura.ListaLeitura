@@ -1,9 +1,6 @@
-﻿using Alura.ListaLeitura.App.Views;
-using Alura.ListaLeitura.App.Negocio;
+﻿using Alura.ListaLeitura.App.Negocio;
 using Alura.ListaLeitura.App.Repositorio;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace Alura.ListaLeitura.App.Logica
 {

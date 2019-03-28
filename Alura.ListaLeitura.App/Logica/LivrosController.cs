@@ -3,6 +3,7 @@ using Alura.ListaLeitura.App.Negocio;
 using Alura.ListaLeitura.App.Repositorio;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Alura.ListaLeitura.App.Logica
 {
@@ -18,8 +19,15 @@ namespace Alura.ListaLeitura.App.Logica
             }
             return conteudoHtml.Replace("#NOVO-ITEM#", "");
         }
-                       
-        public string ParaLer() => CarregaLista(new LivroRepositorioCSV().ParaLer.Livros);
+
+        public IActionResult ParaLer()
+        {
+            var _repo = new LivroRepositorioCSV().ParaLer.Livros;
+            var html = new ViewResult { ViewName = "lista" };
+            return html;
+
+        }
+
 
         public string Lendo() => CarregaLista(new LivroRepositorioCSV().Lendo.Livros);
 
