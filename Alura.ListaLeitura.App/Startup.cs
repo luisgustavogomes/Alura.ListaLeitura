@@ -7,12 +7,12 @@ namespace Alura.ListaLeitura.App
     {
         public void ConfigureServices(IServiceCollection service)
         {
-            service.AddRouting();
             service.AddMvc();
         }
                 
         public void Configure(IApplicationBuilder app)
         {
+            app.UseDeveloperExceptionPage();
             app.UseMvcWithDefaultRoute();
         }
 
@@ -79,5 +79,6 @@ namespace Alura.ListaLeitura.App
         //    var livro = _repo.Todos.First(l => l.Id == id);
         //    return context.Response.WriteAsync(livro.Detalhes());
         //}
+
     }
 }

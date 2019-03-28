@@ -1,11 +1,8 @@
-﻿using Alura.ListaLeitura.App.HTML;
+﻿using Alura.ListaLeitura.App.Views;
 using Alura.ListaLeitura.App.Negocio;
 using Alura.ListaLeitura.App.Repositorio;
-using Microsoft.AspNetCore.Http;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Alura.ListaLeitura.App.Logica
 {
@@ -28,10 +25,6 @@ namespace Alura.ListaLeitura.App.Logica
 
         public string Lidos() => CarregaLista(new LivroRepositorioCSV().Lidos.Livros);
 
-        /// <summary>
-        ///  Exemplo de metodo utilizando AspNetCoreMvc (Não necessita de retorno Task, nem o HttpContext como parametro)
-        /// </summary>
-        /// <returns></returns>
         public string Teste() => "Nova funcionalidade implementada";
 
 
@@ -39,12 +32,7 @@ namespace Alura.ListaLeitura.App.Logica
         {
             return new LivroRepositorioCSV().Todos.First(l => l.Id == id).Detalhes();
         }
-
-
-
-
-        //--------------------------------------------------------------------------//
-
+                     
 
         /// <summary>
         /// Exemplo de criação de metodo utilizando requestDelegate 

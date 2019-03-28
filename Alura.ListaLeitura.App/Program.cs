@@ -1,7 +1,4 @@
-﻿using Alura.ListaLeitura.App.Negocio;
-using Alura.ListaLeitura.App.Repositorio;
-using Microsoft.AspNetCore.Hosting;
-using System;
+﻿using Microsoft.AspNetCore.Hosting;
 
 namespace Alura.ListaLeitura.App
 {
@@ -9,7 +6,6 @@ namespace Alura.ListaLeitura.App
     {
         static void Main(string[] args)
         {
-            var _repo = new LivroRepositorioCSV();
             IWebHost webHost = new WebHostBuilder()
                 .UseKestrel()
                 .UseStartup<Startup>()
