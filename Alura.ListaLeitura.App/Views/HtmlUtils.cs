@@ -1,7 +1,7 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
-namespace Alura.ListaLeitura.App.Views
-
+namespace Alura.ListaLeitura.App.HTML
 {
     public class HtmlUtils
     {

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
@@ -10,8 +10,10 @@
 
 <body>
     <ul>
-        #NOVO-ITEM#
+        @foreach (var livro in ViewBag.Livros)
+        {
+            <li>@livro.Titulo - @livro.Autor</li>
+        }
     </ul>
 </body>
-
 </html>

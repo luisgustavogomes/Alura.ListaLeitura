@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Alura.ListaLeitura.App.Logica
 {
-    public class CadastroController
+    public class CadastroController : Controller
     {
 
         public string Incluir(Livro livro)
@@ -16,7 +16,9 @@ namespace Alura.ListaLeitura.App.Logica
 
         public IActionResult ExibeFormulario()
         {
-            return new ViewResult { ViewName = "formulario" };
+            //return new ViewResult { ViewName = "formulario" };
+            var html = new ViewResult { ViewName = "formulario" };
+            return html;
         }
 
 

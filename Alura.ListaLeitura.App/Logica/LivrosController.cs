@@ -1,4 +1,4 @@
-﻿using Alura.ListaLeitura.App.Views;
+﻿using Alura.ListaLeitura.App.HTML;
 using Alura.ListaLeitura.App.Negocio;
 using Alura.ListaLeitura.App.Repositorio;
 using System.Collections.Generic;
@@ -7,31 +7,34 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Alura.ListaLeitura.App.Logica
 {
-    public class LivrosController
+    public class LivrosController : Controller
     {
+        public IEnumerable<Livro> Livros { get; set; }
 
         private static string CarregaLista(IEnumerable<Livro> livros)
         {
             var conteudoHtml = HtmlUtils.CarregaArquivoHtml("Lista");
-            foreach (var livro in livros)
-            {
-                conteudoHtml = conteudoHtml.Replace("#NOVO-ITEM#", $"<li>{livro.Titulo} - {livro.Autor}</li>#NOVO-ITEM#");
-            }
             return conteudoHtml.Replace("#NOVO-ITEM#", "");
         }
 
         public IActionResult ParaLer()
         {
-            var _repo = new LivroRepositorioCSV().ParaLer.Livros;
-            var html = new ViewResult { ViewName = "lista" };
-            return html;
+            ViewBag.Livros = new LivroRepositorioCSV().ParaLer.Livros;
+            return View("Lista");
 
         }
 
+        public IActionResult Lendo()
+        {
+            ViewBag.Livros = new LivroRepositorioCSV().Lendo.Livros;
+            return View("Lista");
+        }
 
-        public string Lendo() => CarregaLista(new LivroRepositorioCSV().Lendo.Livros);
-
-        public string Lidos() => CarregaLista(new LivroRepositorioCSV().Lidos.Livros);
+        public IActionResult Lidos()
+        {
+            ViewBag.Livros = new LivroRepositorioCSV().Lidos.Livros;
+            return View("Lista");
+        }
 
         public string Teste() => "Nova funcionalidade implementada";
 
